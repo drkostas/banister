@@ -16,3 +16,13 @@ Training-model core in TypeScript for the [soma](https://github.com/drkostas/som
 ```
 npm install banister
 ```
+
+## Projection, pace zones and the PMC
+
+Three modules that used to live as local copies in soma's web app (soma#835):
+
+- `projection.ts`: `projectVdotSeries`, `projectFitnessOnlySeries`, `projectVdotAt` project a VDOT time-series over calendar dates from `DatedLoad[]` (`{ date, load }`) with the shared `BanisterParams`. `DEFAULT_BANISTER` is the projection default.
+- `pace-zones.ts`: the Daniels VDOT table (35 to 60) with `getBasePace(vdot, runType)`, `getHRZone(runType)` and `getHMPrediction(vdot)`; run types map to zones through `RUN_TYPE_TO_ZONE`.
+- `pmc.ts`: `computeActivityLoad`, `computeTrimp`, `computePmc` (EWMA CTL/ATL/TSB, tau 42/7) and `crossModalScale`, checked against the Python load-stream golden in `tests/pmc_golden.json`.
+
+All of it is pure. Reading activities and storing the curve stay with the application that owns the tables.
