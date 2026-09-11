@@ -12,6 +12,17 @@ Training-model core in TypeScript for the [soma](https://github.com/drkostas/som
 
 **Personal calibration** — 4-phase readiness-weight progression: `getCurrentPhase`, `computeCorrelations`, `getActiveWeights` (equal → |Pearson r| → LASSO). LASSO weights are computed in the consumer layer and passed in.
 
+## The training engine (0.5.0)
+
+The rest of soma's training engine, moved here so the web, the app and the pipeline run one implementation:
+
+- `adjust.ts`: `readinessFactorCalc`, `fatigueFactorCalc`, `computeAdjustedPace`, `adjustStepTargets` (the merge step: readiness and fatigue turn a base pace into today's pace, and each step's targets follow).
+- `forward-simulation.ts`: `runForwardSimulation`, the day-by-day projection a trajectory chart draws (VDOT, TSB, readiness, adjusted paces, HM prediction). Its input day type is exported as `SimulationPlanDay`.
+- `plan-generator.ts`: the half-marathon plan builder (`generatePlan`) and its per-workout step builders.
+- `fitness-stream.ts` (efficiency factor, decoupling, VO2max extraction, lap aggregation), `readiness-stream.ts` (`zScore`, `computeReadiness`), `strength-load.ts` (1RM, RPE, running relevance, strength load), `body-comp.ts` (weight EMA), `weight-trend.ts`, `readiness.ts` (`readinessScore`), `freshness.ts` (is an observation still current), `dates.ts`.
+
+Pure functions only, checked against the Python goldens. Reading the tables and storing the results stay with the application.
+
 ## Install
 ```
 npm install banister
