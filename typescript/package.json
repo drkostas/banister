@@ -1,6 +1,6 @@
 {
   "name": "banister",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Banister fitness-fatigue (impulse-response) training model \u2014 predict + differential-evolution fit. TypeScript.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -15,7 +15,9 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "clean": "rm -rf dist",
+    "prepack": "npm run clean && npm run build"
   },
   "license": "MIT",
   "repository": {

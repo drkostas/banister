@@ -171,3 +171,25 @@ export function getHRZone(runType: string): HRZone {
 export function getHMPrediction(vdot: number): number {
   return Math.round(interpolateField(vdot, "hmSeconds"));
 }
+
+/** Half-marathon distance in kilometres. */
+export const HM_KM = 21.0975;
+
+/**
+ * The full interpolated pace set for a (possibly fractional) VDOT, clamped to
+ * the table range. Unrounded, so a caller can format or round as it likes;
+ * `getBasePace` is the rounded per-run-type view of the same table.
+ */
+export function pacesForVdot(vdot: number): VdotPaces {
+  return {
+    easy: interpolateField(vdot, "easy"),
+    marathon: interpolateField(vdot, "marathon"),
+    threshold: interpolateField(vdot, "threshold"),
+    interval: interpolateField(vdot, "interval"),
+    repetition: interpolateField(vdot, "repetition"),
+    hmSeconds: interpolateField(vdot, "hmSeconds"),
+  };
+}
+
+/** Predicted half-marathon race pace (sec/km) from a pace set's HM prediction. */
+export const hmPace = (p: VdotPaces): number => p.hmSeconds / HM_KM;

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { VDOT_TABLE, getBasePace, getHRZone, getHMPrediction, HR_ZONES, RUN_TYPE_TO_ZONE } from "../src/pace-zones";
+import { VDOT_TABLE, getBasePace, getHRZone, getHMPrediction, HR_ZONES, RUN_TYPE_TO_ZONE, pacesForVdot, hmPace, HM_KM } from "../src/pace-zones";
 
 describe("VDOT table", () => {
   it("covers 35..60 with sec/km paces and an HM prediction", () => {
@@ -51,5 +51,28 @@ describe("getHRZone / getHMPrediction", () => {
     expect(getHMPrediction(47)).toBe(VDOT_TABLE[47].hmSeconds);
     expect(getHMPrediction(47.5)).toBe(Math.round((VDOT_TABLE[47].hmSeconds + VDOT_TABLE[48].hmSeconds) / 2));
     expect(getHMPrediction(200)).toBe(VDOT_TABLE[60].hmSeconds);
+  });
+});
+
+describe("pacesForVdot / hmPace", () => {
+  it("integer VDOT returns the table row unchanged", () => {
+    expect(pacesForVdot(47)).toEqual(VDOT_TABLE[47]);
+  });
+  it("fractional VDOT interpolates every field, unrounded", () => {
+    const p = pacesForVdot(47.5);
+    for (const k of ["easy", "marathon", "threshold", "interval", "repetition", "hmSeconds"] as const) {
+      expect(p[k]).toBeCloseTo((VDOT_TABLE[47][k] + VDOT_TABLE[48][k]) / 2, 9);
+    }
+  });
+  it("clamps to the table range", () => {
+    expect(pacesForVdot(10)).toEqual(VDOT_TABLE[35]);
+    expect(pacesForVdot(99)).toEqual(VDOT_TABLE[60]);
+  });
+  it("getBasePace is the rounded view of the same set", () => {
+    expect(getBasePace(52.3, "tempo")).toBe(Math.round(pacesForVdot(52.3).threshold));
+  });
+  it("hmPace divides the HM prediction by 21.0975 km", () => {
+    expect(hmPace(VDOT_TABLE[50])).toBeCloseTo(5495 / 21.0975, 9);
+    expect(HM_KM).toBe(21.0975);
   });
 });
