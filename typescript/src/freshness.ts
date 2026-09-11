@@ -55,3 +55,8 @@ export function staleHeadline(noun: "night" | "HRV reading" | "SpO2 reading" | "
 export function todayKey(now: Date = new Date()): string {
   return now.toLocaleDateString("en-CA", { timeZone: "America/New_York" });
 }
+
+/** Short phone copy: "no night since 08-23", "no HRV since 08-21", "no night yet". */
+export function staleShort(noun: "night" | "HRV" | "SpO2" | "body battery", f: Freshness): string {
+  return f.observed ? `no ${noun} since ${f.observed.slice(5)}` : `no ${noun} yet`;
+}

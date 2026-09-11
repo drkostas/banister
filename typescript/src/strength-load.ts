@@ -87,7 +87,7 @@ export function computeStrengthLoad(exercises: StrengthExercise[], durationMin: 
 }
 
 /** Extract exercises (with weighted sets) from a Hevy workout's raw JSON. */
-function extractExercises(raw: any): StrengthExercise[] {
+export function extractExercises(raw: any): StrengthExercise[] {
   const out: StrengthExercise[] = [];
   for (const ex of raw?.exercises ?? []) {
     const sets: StrengthSet[] = [];
