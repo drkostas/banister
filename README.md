@@ -26,3 +26,5 @@ Three modules that used to live as local copies in soma's web app (soma#835):
 - `pmc.ts`: `computeActivityLoad`, `computeTrimp`, `computePmc` (EWMA CTL/ATL/TSB, tau 42/7) and `crossModalScale`, checked against the Python load-stream golden in `tests/pmc_golden.json`.
 
 All of it is pure. Reading activities and storing the curve stay with the application that owns the tables.
+
+Also in the package since 0.4.0: `pacesForVdot(vdot)` (the interpolated pace set from the table) and `hmPace(paces)`; `hmSecondsFromVdot(vdot)` and `vdotFromHmSeconds(seconds)` over the Daniels equations; and `format.ts` with `paceStr` (sec/km to "M:SS") and `timeStr` (seconds to "H:MM:SS" or "M:SS"), so the web and the app print the same strings for the same numbers.

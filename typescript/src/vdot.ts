@@ -125,3 +125,16 @@ export function adjustVdotForWeight(vdot: number, oldWeight: number, newWeight: 
   if (newWeight <= 0 || oldWeight <= 0) return vdot;
   return (vdot * oldWeight) / newWeight;
 }
+
+/** Half-marathon distance in metres. */
+export const HM_M = 21097.5;
+
+/** Predicted half-marathon time in whole seconds for a VDOT (Daniels equations). */
+export function hmSecondsFromVdot(vdot: number): number {
+  return Math.round(timeFromVdot(vdot, HM_M));
+}
+
+/** VDOT implied by a half-marathon time, to one decimal (inverse of hmSecondsFromVdot). */
+export function vdotFromHmSeconds(seconds: number): number {
+  return Math.round(vdotFromRace(HM_M, seconds) * 10) / 10;
+}
