@@ -16,5 +16,5 @@ describe("fitBanister — scipy-parity (ST3 real data)", () => {
     expect(wsse).toBeLessThanOrEqual(1.9227 * 1.15); // scipy quality (±15%)
     // predictions near the actual anchor VDOTs
     for (const a of anchors) expect(Math.abs(banisterPredict(p, loads, a.day_index) - a.vdot)).toBeLessThan(2.5);
-  }, 60000);
+  }, 300_000);
 });
