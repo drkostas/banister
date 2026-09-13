@@ -1,5 +1,5 @@
 /**
- * Strength training load — TS port of sync/src/training_engine/strength_load.py
+ * Strength training load. Ported from the Python training engine soma once carried; this is the source now.
  * + the _compute_hevy_loads DB step. Estimates a session load (sRPE × duration)
  * and a cross-modal load for the training PMC, from a Hevy workout's sets.
  * Pure formula + a DB step that fills the training_load table. Stage: training

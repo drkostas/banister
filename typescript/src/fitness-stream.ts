@@ -1,5 +1,5 @@
 /**
- * Fitness stream — TS port of sync/src/training_engine/fitness_stream.py.
+ * Fitness stream. Ported from the Python training engine soma once carried; this is the source now.
  * VO2max trend, pace:HR decoupling, efficiency factor, and a VDOT-derived
  * half-marathon race prediction → fitness_trajectory (a table the dashboard
  * graphs). Pure metric helpers + one DB step. Stage: training engine (#187).

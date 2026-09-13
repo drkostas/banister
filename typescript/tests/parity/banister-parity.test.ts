@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { fitBanister, banisterPredict, type DailyLoad, type Anchor } from "../src/banister";
-import data from "./fixtures_data.json";
+import { fitBanister, banisterPredict, type DailyLoad, type Anchor } from "../../src/banister";
+import data from "../fixtures_data.json";
 
 describe("fitBanister — scipy-parity (ST3 real data)", () => {
   it("reaches scipy-quality WSSE + matches anchor predictions", () => {

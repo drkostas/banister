@@ -1,5 +1,5 @@
 /**
- * Body-comp stream — TS port of sync/src/training_engine/body_comp_stream.py.
+ * Body-comp stream. Ported from the Python training engine soma once carried; this is the source now.
  * Smooths weight with a 7-day EMA and derives a weight-adjusted VDOT + race
  * prediction, upserted into fitness_trajectory. Pure EMA + one DB step; reuses
  * the ported vdot helpers. Stage: training engine (#187). DB-only.

@@ -18,8 +18,26 @@ jobs:
         with:
           node-version: "22"
       - name: Install
-        run: npm ci || npm install
+        run: npm ci
       - name: Build (tsc)
         run: npm run build
       - name: Unit tests
         run: npm test
+
+  parity:
+    # The scipy-parity fit over real data (about two minutes here); its own job so the unit suite
+    # above answers in seconds and the fit still gates every push (banister#10).
+    name: Parity fit (scipy reference)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: typescript
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install
+        run: npm ci
+      - name: Parity fit
+        run: npm run test:parity
