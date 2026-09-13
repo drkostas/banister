@@ -1,0 +1,3 @@
+# macOS writes these into every directory it has ever displayed in Finder, and this repo is
+# the only one in the ecosystem that was not ignoring them.
+.DS_Store
