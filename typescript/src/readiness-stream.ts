@@ -1,5 +1,5 @@
 /**
- * Readiness stream — TS port of sync/src/training_engine/readiness_stream.py.
+ * Readiness stream. Ported from the Python training engine soma once carried; this is the source now.
  * Daily readiness (traffic light) from biometric z-scores vs a 28-day baseline:
  * HRV, sleep time, RHR (inverted), morning body battery. Equal-weight composite
  * (Dawes 1979) + hard overrides. Writes daily_readiness (dashboard reads it).
