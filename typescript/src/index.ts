@@ -16,3 +16,4 @@ export * from "./readiness-stream";
 export * from "./strength-load";
 export * from "./body-comp";
 export * from "./weight-trend";
+export * from "./anchors";

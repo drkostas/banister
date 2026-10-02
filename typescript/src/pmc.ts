@@ -97,3 +97,24 @@ export function crossModalScale(source: string): number {
 // identical quality), so a personal tau would make the curve drift arbitrarily.
 export const DEFAULT_TAU_CTL = 42;
 export const DEFAULT_TAU_ATL = 7;
+
+/** One training-load record: the day it counts for, where it came from, and its load. */
+export interface LoadRecord { date: string; source: string; load: number; }
+
+/**
+ * The daily load series both the PMC and the Banister fit read: each record scaled by
+ * `crossModalScale` for its source, summed per day, with every rest day between the first and the
+ * last record present as 0. Dates are YYYY-MM-DD and the series is in date order.
+ */
+export function dailyLoadSeries(records: LoadRecord[]): Array<[string, number]> {
+  if (!records.length) return [];
+  const byDate = new Map<string, number>();
+  for (const r of records) byDate.set(r.date, (byDate.get(r.date) ?? 0) + Number(r.load) * crossModalScale(r.source));
+  const keys = [...byDate.keys()].sort();
+  const end = keys[keys.length - 1];
+  const out: Array<[string, number]> = [];
+  for (let cur = keys[0]; cur <= end; cur = new Date(Date.parse(cur + "T00:00:00Z") + 86_400_000).toISOString().slice(0, 10)) {
+    out.push([cur, byDate.get(cur) ?? 0]);
+  }
+  return out;
+}

@@ -31,14 +31,19 @@ export const DEFAULT_CALIBRATION_WEIGHT_KG = 80.5;
 
 export interface WeightEmaPoint { date: string; weight_raw: number; weight_ema: number; }
 
-/** Exponential moving average of (date, weight) pairs; alpha = 2/(span+1). */
-export function computeWeightEma(weights: Array<[string, number]>, span = 7): WeightEmaPoint[] {
+/**
+ * Exponential moving average of (date, weight) pairs; alpha = 2/(span+1).
+ *
+ * `digits` rounds each point (2 by default). Pass null to keep full precision, for a caller that rounds
+ * its own display: rounding twice moves about one point in eleven by a tenth.
+ */
+export function computeWeightEma(weights: Array<[string, number]>, span = 7, digits: number | null = 2): WeightEmaPoint[] {
   const alpha = 2.0 / (span + 1);
   const results: WeightEmaPoint[] = [];
   let ema: number | null = null;
   for (const [dt, w] of weights) {
     ema = ema === null ? w : w * alpha + ema * (1 - alpha);
-    results.push({ date: dt, weight_raw: w, weight_ema: r(ema, 2) });
+    results.push({ date: dt, weight_raw: w, weight_ema: digits === null ? ema : r(ema, digits) });
   }
   return results;
 }
