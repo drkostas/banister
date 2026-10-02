@@ -1,6 +1,6 @@
 {
   "name": "banister",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Banister fitness-fatigue (impulse-response) training model — predict + differential-evolution fit. TypeScript.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

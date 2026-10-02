@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.1
+
+- The npm package has a README (the npm page was empty), including the 0.6.0 additions.
+
 ## 0.6.0
 
 - `detectAnchorRuns`: picks the maximal-effort runs (at least 90% of HRmax over at least 2 km by default) the Banister fit anchors to, each with its VDOT.
