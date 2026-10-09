@@ -1,3 +1,5 @@
+![banister](docs/images/banner.png)
+
 # banister
 
 Training-model core in TypeScript for the [soma](https://github.com/drkostas/soma) ecosystem. Ported from soma's Python `training_engine` and verified against it with golden fixtures.
